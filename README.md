@@ -1,5 +1,4 @@
-# Frontend Mentor - Kanban task management web app
-
+# Kanban 4U
 
 
 
@@ -11,7 +10,7 @@
     <img src="./client/src/assets/baketomo-logo.svg" alt="Logo">
   </a> -->
 
-<!-- <h3 align="center"><a href="https://baketomo.onrender.com/">Baketomo</a></h3> -->
+<!-- <h3 align="center"><a href="https://baketomo.onrender.com/">Ba</a></h3> -->
 
   <p align="center">
 
