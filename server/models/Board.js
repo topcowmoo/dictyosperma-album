@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema } = require("mongoose");
 
 const boardSchema = new Schema({
   title: {
@@ -9,7 +9,7 @@ const boardSchema = new Schema({
   description: {
     type: String,
   },
-  user: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
