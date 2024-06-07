@@ -14,6 +14,9 @@ const cardSchema = new Schema({
     ref: "Column",
     required: true,
   },
+  //   position: {      // This will likely be handled in context rather than
+
+  //   }
 });
 
 const Card = mongoose.model("Card", cardSchema);
