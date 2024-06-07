@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const boardSchema = new Schema({
   title: {
@@ -16,6 +16,6 @@ const boardSchema = new Schema({
   },
 });
 
-const Board = mongoose.model("Board", boardSchema);
+const Board = model("Board", boardSchema);
 
 module.exports = Board;

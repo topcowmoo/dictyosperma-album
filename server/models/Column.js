@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const columnSchema = new Schema({
   title: {
@@ -13,6 +13,6 @@ const columnSchema = new Schema({
   },
 });
 
-const Column = mongoose.model("Column", columnSchema);
+const Column = model("Column", columnSchema);
 
 module.exports = Column;
