@@ -14,9 +14,10 @@ const cardSchema = new Schema({
     ref: "Column",
     required: true,
   },
-  //   position: {      // This will likely be handled in context rather than
-
-  //   }
+  position: {
+    type: Int,
+    required: true,
+  },
 });
 
 const Card = model("Card", cardSchema);
