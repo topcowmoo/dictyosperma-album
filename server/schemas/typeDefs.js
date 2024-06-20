@@ -36,7 +36,7 @@ type Card {
 
 type Query {
    boards(userId: ID!): [Board]
-   board(id:): Board
+   board(id: ID!): Board
    columns(boardId: ID!): [Column]
    column(id: ID!): Column
    cards(columnId: ID!): [Card]
@@ -55,7 +55,7 @@ type Mutation {
     addCard(title: String!, description: String, columnId: ID!, position: Int!): Card
     updateCardPosition(cardId: ID!, position: Int!): Card
     updateCard(cardId: ID!, title: String, description: String): Card
-    UpdateColumnTitle(columnId: ID!, title: String!): Column
+    updateColumnTitle(columnId: ID!, title: String!): Column
     updateBoardTitle(boardId: ID!, title: String!): Board
     deleteBoard(id: ID!): Boolean
     deleteColumn(id: ID!): Boolean
