@@ -16,6 +16,12 @@ const boardSchema = new Schema({
   },
 });
 
+boardSchema.virtual('columns', {
+  ref: 'Column', // This is the model that will be used
+  localField: '_id', // Find columns where `localField` (Board `_id`) matches `foreignField` (`boardId` in Column)
+  foreignField: 'boardId',
+});
+
 const Board = model("Board", boardSchema);
 
 module.exports = Board;
