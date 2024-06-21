@@ -1,16 +1,12 @@
-# Kanban 4U
-
-
-
 <a name="readme-top"></a>
 
 <br />
 <div align="center">
-  <!-- <a href="https://github.com/topcowmoo/dictyosperma-album">
-    <img src="./client/src/assets/baketomo-logo.svg" alt="Logo">
-  </a> -->
+  <a href="https://github.com/topcowmoo/dictyosperma-album">
+    <img src="./client/src/assets/logo.png" alt="Logo">
+  </a>
 
-<!-- <h3 align="center"><a href="https://baketomo.onrender.com/">Ba</a></h3> -->
+<!-- <h3 align="center"><a href="https://baketomo.onrender.com/">Kanban 4U</a></h3> -->
 
   <p align="center">
 
