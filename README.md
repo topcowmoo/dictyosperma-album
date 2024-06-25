@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/topcowmoo/dictyosperma-album">
-    <img src="./client/src/assets/logo.png" alt="Logo">
+    <img src="./client/src/assets/lightlogo.png" alt="Logo">
   </a>
 
 <!-- <h3 align="center"><a href="https://baketomo.onrender.com/">Kanban 4U</a></h3> -->
