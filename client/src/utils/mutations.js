@@ -1,10 +1,10 @@
-// Imports the gql function from the Apollo Client pasckage, which is used to define GraphQL queries and mutations.
+// Imports the gql function from the Apollo Client package, which is used to define GraphQL queries and mutations.
 import { gql } from "@apollo/client";
 
 export const ADD_BOARD = gql`
   mutation AddBoard($title: String!, $description: String, $userId: ID!) {
     addBoard(title: $title, description: $description, userId: $userId) {
-      id
+      _id
       title
       description
       userId
@@ -16,7 +16,7 @@ export const ADD_BOARD = gql`
 export const ADD_COLUMN = gql`
   mutation AddColumn($title: String!, $boardId: ID!) {
     addColumn(title: $title, boardId: $boardId) {
-      id
+      _id
       title
       boardId
     }
@@ -27,7 +27,7 @@ export const ADD_COLUMN = gql`
 export const ADD_CARD = gql`
   mutation AddCard($title: String!, $description: String, $columnId: ID!, $position: Int!) {
     addCard(title: $title, description: $description, columnId: $columnId, position: $position) {
-      id
+      _id
       title
       description
       columnId
@@ -40,7 +40,7 @@ export const ADD_CARD = gql`
 export const UPDATE_CARD_POSITION = gql`
   mutation UpdateCardPosition($cardId: ID!, $position: Int!) {
     updateCardPosition(cardId: $cardId, position: $position) {
-      id
+      _id
       position
     }
   }
@@ -51,7 +51,7 @@ export const UPDATE_CARD_POSITION = gql`
 export const UPDATE_CARD = gql`
   mutation UpdateCard($cardId: ID!, $title: String, $description: String) {
     updateCard(cardId: $cardId, title: $title, description: $description) {
-      id
+      _id
       title
       description
     }
@@ -62,7 +62,7 @@ export const UPDATE_CARD = gql`
 export const UPDATE_COLUMN_TITLE = gql`
   mutation UpdateColumnTitle($columnId: ID!, $title: String!) {
     updateColumnTitle(columnId: $columnId, title: $title) {
-      id
+      _id
       title
     }
   }
@@ -97,7 +97,7 @@ export const ADD_USER = gql`
     addUser(username: $username, email: $email, password: $password) {
       token
       user {
-        id
+        _id
         username
         email
       }
