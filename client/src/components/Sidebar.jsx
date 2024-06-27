@@ -1,34 +1,58 @@
 // Import necessary hooks and components from React and other libraries
 import { useState, useEffect } from "react";
-import { Dialog, DialogPanel } from "@headlessui/react"; // Components for modal dialog
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"; // Icons from Heroicons
-import {
-  MdVisibilityOff as VisibilityOffIcon,
-  MdVisibility as VisibilityIcon,
-  MdLogin as LoginIcon,
-  MdDarkMode as MoonIcon,
-  MdLightMode as SunIcon,
-} from "react-icons/md"; // Icons from Material Design Icons
-import darklogo from "../assets/darklogo.png"; // Dark mode logo
-import lightlogo from "../assets/lightlogo.png"; // Light mode logo
+import { Dialog, DialogPanel } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import darklogo from "../assets/darklogo.png";
+import lightlogo from "../assets/lightlogo.png";
+import iconLightTheme from "../assets/icon-light-theme.svg";
+import iconDarkTheme from "../assets/icon-dark-theme.svg";
+import iconHideSidebar from "../assets/icon-hide-sidebar.svg";
+import iconShowSidebar from "../assets/icon-show-sidebar.svg";
+import iconBoard from "../assets/icon-board.svg";
+import PropTypes from "prop-types";
 
-// Navigation links for the sidebar
+// Define navigation items for the sidebar
 const navigation = [
-  { name: "ALL BOARDS", href: "#" },
-  { name: "+ Create New Board", href: "#" },
+  {
+    id: 1, // Had to add Unique ID for the navigation item
+    name: (
+      <div className="text-slate-400 text-xs tracking-[2.40px]">ALL BOARDS</div>
+    ),
+    href: "#all-boards",
+  },
+  {
+    id: 2, // Had to add Unique ID for the navigation item
+    name: (
+      <div className="flex items-center ">
+        <img
+          className="w-[18px] h-4 mr-2 text-primary"
+          src={iconBoard}
+          alt="board icon"
+        />
+        <div className="text-primary text-[15px]">+ Create New Board</div>
+      </div>
+    ),
+    href: "#create-new-board",
+  },
 ];
 
-// Utility function to combine class names
+// Utility function to combine class names conditionally
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Sidebar() {
-  const [sidebarOpen, setSidebarOpen] = useState(false); // State for controlling the sidebar dialog
-  const [sidebarVisible, setSidebarVisible] = useState(true); // State for controlling sidebar visibility
-  const [darkMode, setDarkMode] = useState(false); // State for toggling dark mode
+// Main Sidebar component
+export default function Sidebar({
+  sidebarVisible,
+  setSidebarVisible,
+  darkMode,
+  toggleDarkMode,
+  isLoggedIn,
+}) {
+  // State to manage the sidebar open/close status
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Effect to add/remove dark mode class to the document
+  // Effect to toggle dark mode class on the root element
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -40,8 +64,8 @@ export default function Sidebar() {
   return (
     <>
       <div className="flex">
-        {/* Sidebar for mobile devices */}
         {sidebarVisible && (
+          // Dialog for mobile view sidebar
           <Dialog
             className="relative z-50 lg:hidden"
             open={sidebarOpen}
@@ -49,7 +73,7 @@ export default function Sidebar() {
           >
             <div className="fixed inset-0 bg-gray-900/80" />
             <div className="fixed inset-0 flex">
-              <DialogPanel className="relative flex w-full max-w-xs flex-1 flex-col bg-white dark:bg-darkBackground transition duration-300 ease-in-out">
+              <DialogPanel className="relative flex w-full max-w-xs flex-1 flex-col bg-white dark:bg-darkBackground transition duration-300 ease-in-out px-4">
                 <div className="flex justify-between p-5">
                   <a href="#">
                     <img
@@ -70,16 +94,13 @@ export default function Sidebar() {
                     />
                   </button>
                 </div>
-                <div className="px-4 pb-4">
-                  <div className="text-gray-800 dark:text-darkText text-lg font-normal mb-4"></div>
-                </div>
                 <nav className="flex-1 px-4 pb-4 space-y-1">
                   {navigation.map((item) => (
                     <a
-                      key={item.name}
+                      key={item.id}
                       href={item.href}
                       className={classNames(
-                        "text-gray-700 dark:text-darkText hover:bg-primary dark:hover:bg-darkPrimary hover:text-white dark:hover:text-indigo-400",
+                        "text-gray-700 dark:text-darkText",
                         "block rounded-md p-2 text-base font-medium"
                       )}
                     >
@@ -88,35 +109,56 @@ export default function Sidebar() {
                   ))}
                 </nav>
                 <div className="px-4 pb-4 flex flex-col items-start gap-2">
-                  <button
-                    type="button"
-                    className="flex items-center justify-start p-2 text-gray-700 dark:text-darkText bg-primary dark:bg-darkPrimary hover:bg-primary dark:hover:bg-darkPrimary rounded-l-lg"
-                    onClick={() => setDarkMode(!darkMode)}
+                  <div
+                    className={`w-full h-12 relative cursor-pointer ${
+                      darkMode ? "bg-darkDropdown" : "bg-linesLight"
+                    }`}
+                    onClick={toggleDarkMode}
                   >
-                    {darkMode ? (
-                      <SunIcon className="h-6 w-6" />
-                    ) : (
-                      <MoonIcon className="h-6 w-6" />
-                    )}
-                    <span className="ml-2"></span>
-                  </button>
-                  <button
-                    type="button"
-                    className="flex items-center justify-start p-2 text-gray-700 dark:text-darkText bg-primary dark:bg-darkPrimary hover:bg-primary dark:hover:bg-darkPrimary rounded-l-lg"
+                    <div className="w-full h-12 left-0 top-0 absolute rounded-md" />
+                    <div className="w-10 h-5 left-[calc(50%-20px)] top-[calc(50%-10px)] absolute">
+                      <div className="w-10 h-5 left-0 top-0 absolute bg-primary rounded-xl" />
+                      <div
+                        className={`w-3.5 h-3.5 left-[3px] top-[3px] absolute bg-white rounded-full transition-transform duration-300 ${
+                          darkMode ? "transform translate-x-[18px]" : ""
+                        }`}
+                      />
+                    </div>
+                    <img
+                      className="w-[15px] h-[15px] left-[85%] top-[calc(50%-7.5px)] absolute"
+                      src={iconDarkTheme}
+                      alt="dark mode icon"
+                    />
+                    <img
+                      className="w-[18.33px] h-[18.33px] left-[15%] top-[calc(50%-9.165px)] absolute"
+                      src={iconLightTheme}
+                      alt="light mode icon"
+                    />
+                  </div>
+                  <div
+                    className="w-full h-12 relative cursor-pointer flex items-center"
                     onClick={() => setSidebarVisible(!sidebarVisible)}
                   >
-                    <VisibilityOffIcon className="h-6 w-6" />
-                    <span className="ml-2"></span>
-                  </button>
+                    <div className="flex items-center justify-start w-full">
+                      <img
+                        className="w-[18px] h-4 mr-2"
+                        src={sidebarVisible ? iconHideSidebar : iconShowSidebar}
+                        alt="icon"
+                      />
+                      <div className="text-slate-400 text-[15px]">
+                        {sidebarVisible ? "Hide Sidebar" : "Show Sidebar"}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </DialogPanel>
             </div>
           </Dialog>
         )}
 
-        {/* Sidebar for desktop devices */}
         {sidebarVisible && (
-          <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 lg:border-r-1 lg:border-neutral-200 lg:bg-white lg:dark:bg-darkBackground lg:pb-4">
+          // Sidebar for desktop view
+          <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 lg:border-r-2 lg:border-linesLight lg:bg-white lg:dark:bg-darkBackground lg:pb-4 lg:px-4">
             <div className="flex items-center justify-between p-5">
               <a href="#">
                 <img
@@ -130,10 +172,10 @@ export default function Sidebar() {
             <nav className="flex-1 px-4 pb-4 space-y-1">
               {navigation.map((item) => (
                 <a
-                  key={item.name}
+                  key={item.id}
                   href={item.href}
                   className={classNames(
-                    "text-gray-700 dark:text-darkText hover:bg-primary dark:hover:bg-darkPrimary hover:text-white dark:hover:text-indigo-400",
+                    "text-gray-700 dark:text-darkText",
                     "block rounded-md p-2 text-base font-medium"
                   )}
                 >
@@ -142,83 +184,70 @@ export default function Sidebar() {
               ))}
             </nav>
             <div className="px-4 pb-4 flex flex-col items-start gap-2">
-              <button
-                type="button"
-                className="inline-flex items-center justify-start p-2 text-gray-700 dark:text-darkText bg-primary dark:bg-darkPrimary hover:bg-primary dark:hover:bg-darkPrimary rounded-l-lg"
-                onClick={() => setDarkMode(!darkMode)}
+              <div
+                className={`w-full h-12 relative cursor-pointer ${
+                  darkMode ? "bg-darkDropdown" : "bg-linesLight"
+                }`}
+                onClick={toggleDarkMode}
               >
-                {darkMode ? (
-                  <SunIcon className="h-6 w-6" />
-                ) : (
-                  <MoonIcon className="h-6 w-6" />
-                )}
-                <span className="ml-2"></span>
-              </button>
-              <button
-                type="button"
-                className="inline-flex items-center justify-start p-2 text-gray-700 dark:text-darkText bg-primary dark:bg-darkPrimary hover:bg-primary dark:hover:bg-darkPrimary rounded-l-lg"
+                <div className="w-full h-12 left-0 top-0 absolute rounded-md" />
+                <div className="w-10 h-5 left-[calc(50%-20px)] top-[calc(50%-10px)] absolute">
+                  <div className="w-10 h-5 left-0 top-0 absolute bg-primary rounded-xl" />
+                  <div
+                    className={`w-3.5 h-3.5 left-[3px] top-[3px] absolute bg-white rounded-full transition-transform duration-300 ${
+                      darkMode ? "transform translate-x-[18px]" : ""
+                    }`}
+                  />
+                </div>
+                <img
+                  className="w-[15px] h-[15px] left-[85%] top-[calc(50%-7.5px)] absolute"
+                  src={iconDarkTheme}
+                  alt="dark mode icon"
+                />
+                <img
+                  className="w-[18.33px] h-[18.33px] left-[15%] top-[calc(50%-9.165px)] absolute"
+                  src={iconLightTheme}
+                  alt="light mode icon"
+                />
+              </div>
+              <div
+                className="w-full h-12 relative cursor-pointer flex items-center"
                 onClick={() => setSidebarVisible(!sidebarVisible)}
               >
-                <VisibilityOffIcon className="h-6 w-6" />
-                <span className="ml-2"></span>
-              </button>
+                <div className="flex items-center justify-start w-full">
+                  <img
+                    className="w-[18px] h-4 mr-2"
+                    src={sidebarVisible ? iconHideSidebar : iconShowSidebar}
+                    alt="icon"
+                  />
+                  <div className="text-slate-400 text-[15px]">
+                    {sidebarVisible ? "Hide Sidebar" : "Show Sidebar"}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
 
-        {/* Main content area */}
         <div className={`flex-1 ${sidebarVisible ? "lg:pl-64" : ""}`}>
-          <div className="sticky top-0 z-40 flex h-16 items-center gap-x-4 border-b-1 border-neutral-200 dark:border-darkPrimary bg-white dark:bg-darkBackground px-4 sm:gap-x-6 sm:px-6 lg:px-8">
-            <button
-              type="button"
-              className="-m-2.5 p-2.5 text-gray-700 dark:text-darkText lg:hidden"
-              onClick={() => setSidebarOpen(true)}
-            >
-              <span className="sr-only">Open sidebar</span>
-              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-            </button>
-            {!sidebarVisible && (
-              <div className="flex items-center">
-                <img
-                  className="h-8 w-auto"
-                  src={darkMode ? darklogo : lightlogo}
-                  alt="Your Company"
-                />
-              </div>
-            )}
-            <div className="flex-1" />
-            <div className="flex items-center gap-x-4">
-              <button
-                type="button"
-                className="rounded-l-lg bg-primary dark:bg-darkPrimary px-4 py-2.5 text-sm font-normal text-gray-900 dark:text-darkText shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-darkPrimary hover:bg-gray-50 dark:hover:bg-gray-600"
-              >
-                + Add New Task
-              </button>
-              <button
-                type="button"
-                className="rounded-r-lg bg-primary dark:bg-darkPrimary px-4 py-2.5 text-sm font-normal text-gray-900 dark:text-darkText shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-darkPrimary hover:bg-white dark:hover:bg-darkPrimary flex items-center justify-center"
-                // onClick={() => setSidebarVisible(!sidebarVisible)}
-              >
-                <LoginIcon className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
           <main className="py-10">
             <div className="px-4 sm:px-6 lg:px-8">{/* Content */}</div>
           </main>
         </div>
 
-        {/* Button to open sidebar when it's closed */}
         {!sidebarVisible && (
+          // Button to show sidebar when it's hidden
           <div className="fixed bottom-4 left-4">
-            <div className="group">
-              <button
-                type="button"
-                className="rounded-l-lg p-2 text-gray-700 dark:text-darkText bg-primary dark:bg-darkPrimary"
-                onClick={() => setSidebarVisible(!sidebarVisible)}
-              >
-                <VisibilityIcon className="h-6 w-6" />
-              </button>
+            <div
+              className="w-14 h-12 relative cursor-pointer"
+              onClick={() => setSidebarVisible(!sidebarVisible)}
+            >
+              <div className="w-14 h-12 left-0 top-0 absolute bg-primary rounded-tr-[100px] rounded-br-[100px]" />
+              <img
+                className="w-4 h-[10.22px] left-[18px] top-[19px] absolute"
+                src={iconShowSidebar}
+                alt="Show sidebar icon"
+              />
             </div>
           </div>
         )}
@@ -226,3 +255,12 @@ export default function Sidebar() {
     </>
   );
 }
+
+// Define prop types for the Sidebar component
+Sidebar.propTypes = {
+  sidebarVisible: PropTypes.bool.isRequired, // Boolean indicating if the sidebar is visible
+  setSidebarVisible: PropTypes.func.isRequired, // Function to toggle sidebar visibility
+  darkMode: PropTypes.bool.isRequired, // Boolean indicating if dark mode is enabled
+  toggleDarkMode: PropTypes.func.isRequired, // Function to toggle dark mode
+  isLoggedIn: PropTypes.bool.isRequired, // Boolean indicating if the user is logged in
+};
