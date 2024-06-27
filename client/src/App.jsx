@@ -1,12 +1,12 @@
-import './index.css'
+import './index.css';
+import Sidebar from './components/Sidebar';
 
 function App() {
-
   return (
-    <>
-    <div>TESTING 1, 2, 3, 38, 232, 34232, 32423255555</div>
-    </>
-  )
+    <div className="App">
+      <Sidebar />
+    </div>
+  );
 }
 
-export default App
+export default App;
