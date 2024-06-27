@@ -16,6 +16,7 @@ type Board {
     title: String!
     description: String
     user: User! 
+    columns: [Column] # Reflecting the virtual field
 
 }
 
@@ -23,6 +24,7 @@ type Column {
     _id: ID!
     title: String!
     board: Board!
+    cards: [Card] # Reflecting the virtual field
 }
 
 type Card {
