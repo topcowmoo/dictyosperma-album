@@ -15,7 +15,7 @@ const cardSchema = new Schema({
     required: true,
   },
   position: {
-    type: Int,
+    type: Number, // Mongoose type for numbers, graphql will understand this as Int, Int does not exist  in mongoose 
     required: true,
   },
 });
