@@ -79,7 +79,7 @@ export default function Sidebar() {
                       key={item.name}
                       href={item.href}
                       className={classNames(
-                        "text-gray-700 dark:text-darkText hover:bg-gray-50 dark:hover:bg-darkPrimary hover:text-indigo-600 dark:hover:text-indigo-400",
+                        "text-gray-700 dark:text-darkText hover:bg-primary dark:hover:bg-darkPrimary hover:text-white dark:hover:text-indigo-400",
                         "block rounded-md p-2 text-base font-medium"
                       )}
                     >
@@ -116,7 +116,7 @@ export default function Sidebar() {
 
         {/* Sidebar for desktop devices */}
         {sidebarVisible && (
-          <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 lg:border-r-2 lg:border-gray-900 lg:bg-white lg:dark:bg-darkBackground lg:pb-4">
+          <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 lg:border-r-1 lg:border-neutral-200 lg:bg-white lg:dark:bg-darkBackground lg:pb-4">
             <div className="flex items-center justify-between p-5">
               <a href="#">
                 <img
@@ -133,7 +133,7 @@ export default function Sidebar() {
                   key={item.name}
                   href={item.href}
                   className={classNames(
-                    "text-gray-700 dark:text-darkText hover:bg-gray-50 dark:hover:bg-darkPrimary hover:text-indigo-600 dark:hover:text-indigo-400",
+                    "text-gray-700 dark:text-darkText hover:bg-primary dark:hover:bg-darkPrimary hover:text-white dark:hover:text-indigo-400",
                     "block rounded-md p-2 text-base font-medium"
                   )}
                 >
@@ -168,7 +168,7 @@ export default function Sidebar() {
 
         {/* Main content area */}
         <div className={`flex-1 ${sidebarVisible ? "lg:pl-64" : ""}`}>
-          <div className="sticky top-0 z-40 flex h-16 items-center gap-x-4 border-b-2 border-gray-900 dark:border-darkPrimary bg-white dark:bg-darkBackground px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+          <div className="sticky top-0 z-40 flex h-16 items-center gap-x-4 border-b-1 border-neutral-200 dark:border-darkPrimary bg-white dark:bg-darkBackground px-4 sm:gap-x-6 sm:px-6 lg:px-8">
             <button
               type="button"
               className="-m-2.5 p-2.5 text-gray-700 dark:text-darkText lg:hidden"
