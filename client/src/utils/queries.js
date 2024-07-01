@@ -8,7 +8,6 @@ export const GET_BOARDS = gql`
       _id
       title
       description
-      userId
     }
   }
 `;
@@ -20,7 +19,6 @@ export const GET_BOARD = gql`
       _id
       title
       description
-      userId
       columns {
         _id
         title
