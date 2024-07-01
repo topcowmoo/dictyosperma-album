@@ -13,24 +13,30 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App h-screen flex flex-col">
       <Header
         sidebarVisible={sidebarVisible}
         setSidebarOpen={setSidebarVisible}
         darkMode={darkMode}
         isLoggedIn={isLoggedIn}
       />
-      <Sidebar
-        sidebarVisible={sidebarVisible}
-        setSidebarVisible={setSidebarVisible}
-        darkMode={darkMode}
-        toggleDarkMode={toggleDarkMode}
-        isLoggedIn={isLoggedIn}
-      />
-      <div className={`flex-1 ${sidebarVisible ? 'lg:pl-64' : ''}`}>
-        <main className="py-10">
-          <div className="px-4 sm:px-6 lg:px-8">{/* Content */}</div>
-        </main>
+      <div className="flex flex-1">
+        <Sidebar
+          sidebarVisible={sidebarVisible}
+          setSidebarVisible={setSidebarVisible}
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
+          isLoggedIn={isLoggedIn}
+        />
+        <div className={`flex-1 flex flex-col`}>
+          <main className="flex-1 bg-gray-200">
+            <div className="h-full flex items-center">
+              <div className="text-center bg-opacity-50 flex-1">
+                content here
+              </div>
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );
