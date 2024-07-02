@@ -2,11 +2,20 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import { MdLogin as LoginIcon, MdLogout as LogoutIcon } from "react-icons/md";
 import darklogo from "../assets/darklogo.png";
 import lightlogo from "../assets/lightlogo.png";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-export default function Header({ sidebarVisible, setSidebarOpen, darkMode, isLoggedIn }) {
+export default function Header({
+  sidebarVisible,
+  setSidebarOpen,
+  darkMode,
+  isLoggedIn,
+}) {
   return (
-    <div className={`top-0 z-40 flex items-center gap-x-4 border-b-2 border-linesLight dark:border-linesLight bg-white dark:bg-darkBackground px-4 sm:gap-x-6 sm:px-6 lg:px-8 py-6 ${sidebarVisible ? 'lg:pl-64' : ''}`}>
+    <div
+      className={`top-0 z-40 flex items-center gap-x-4 border-b-2 border-linesLight dark:border-linesLight bg-white dark:bg-darkBackground px-4 sm:gap-x-6 sm:px-6 lg:px-8 py-6 ${
+        sidebarVisible ? "lg:pl-64" : ""
+      }`}
+    >
       <button
         type="button"
         className="-m-2.5 p-2.5 text-gray-700 dark:text-darkText lg:hidden"

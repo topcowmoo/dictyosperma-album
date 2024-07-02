@@ -1,6 +1,7 @@
 import "./index.css";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
+import Board from "./components/Board";
 import { useState } from "react";
 
 function App() {
@@ -21,22 +22,30 @@ function App() {
         isLoggedIn={isLoggedIn}
       />
       <div className="flex flex-1">
-        <Sidebar
-          sidebarVisible={sidebarVisible}
-          setSidebarVisible={setSidebarVisible}
-          darkMode={darkMode}
-          toggleDarkMode={toggleDarkMode}
-          isLoggedIn={isLoggedIn}
-        />
-        <div className={`flex-1 flex flex-col`}>
-          <main className="flex-1 bg-gray-200">
-            <div className="h-full flex items-center">
-              <div className="text-center bg-opacity-50 flex-1">
-                content here
-              </div>
-            </div>
-          </main>
-        </div>
+        {sidebarVisible && (
+          <div className="w-64">
+            <Sidebar
+              sidebarVisible={sidebarVisible}
+              setSidebarVisible={setSidebarVisible}
+              darkMode={darkMode}
+              toggleDarkMode={toggleDarkMode}
+              isLoggedIn={isLoggedIn}
+            />
+          </div>
+        )}
+
+        {!sidebarVisible && (
+          <div>
+            <Sidebar
+              sidebarVisible={sidebarVisible}
+              setSidebarVisible={setSidebarVisible}
+              darkMode={darkMode}
+              toggleDarkMode={toggleDarkMode}
+              isLoggedIn={isLoggedIn}
+            />
+          </div>
+        )}
+        <Board />
       </div>
     </div>
   );
