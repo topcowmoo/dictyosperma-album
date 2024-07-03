@@ -8,6 +8,8 @@ function App() {
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  //state to handle empty boards
+  const [boardEmpty, setBoardEmpty] = useState(true);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -45,7 +47,7 @@ function App() {
             />
           </div>
         )}
-        <Board />
+        <Board boardEmpty={boardEmpty} setBoardEmpty={setBoardEmpty} />
       </div>
     </div>
   );
