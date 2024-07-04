@@ -2,11 +2,23 @@ import PropTypes from "prop-types";
 import Column from "./Column";
 
 export default function Board({ boardEmpty, setBoardEmpty }) {
+  const tasks1 = [
+    { title: "Get talkin", description: "0 of 1 subtasks" },
+    { title: "Grocery", description: "0 of 2 subtasks" },
+  ];
+
+  const tasks2 = [];
+
+  const tasks3 = [
+    { title: "Extract KPI results", description: "3 of 3 subtasks" },
+    { title: "Managment Course", description: "2 of 2 subtasks" },
+  ];
+
   return (
-    <div className="flex-1 flex">
+    <div className="flex-1 flex bg-linesDark dark:bg-darkDropdown pl-1">
       {boardEmpty ? (
         // Display for empty boards
-        <main className="flex-1 bg-linesDark dark:bg-darkDropdown flex items-center justify-center">
+        <main className="flex-1 flex items-center justify-center">
           <div className="flex flex-col text-center items-center">
             <div className="text-slate-400 bg-opacity-50 mb-4">
               This board is empty. Create a new column to get started.
@@ -24,9 +36,9 @@ export default function Board({ boardEmpty, setBoardEmpty }) {
 
         <main className="flex-1 bg-linesDark dark:bg-darkDropdown flex">
           <div className="flex flex-1 space-x-4 p-1">
-            <Column title="Todo" />
-            <Column title="Doing" />
-            <Column title="Done" />
+            <Column title="Todo" tasks={tasks1} />
+            <Column title="Doing" tasks={tasks2} />
+            <Column title="Done" tasks={tasks3} />
             <div className="flex flex-col w-1/6 p-1">
               <h2 className="text-md mb-2 min-h-[16px]"></h2>
               <div
