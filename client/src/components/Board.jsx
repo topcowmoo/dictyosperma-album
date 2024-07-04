@@ -36,9 +36,9 @@ export default function Board({ boardEmpty, setBoardEmpty }) {
 
         <main className="flex-1 bg-linesDark dark:bg-darkDropdown flex">
           <div className="flex flex-1 space-x-4 p-1">
-            <Column title="Todo" tasks={tasks1} />
-            <Column title="Doing" tasks={tasks2} />
-            <Column title="Done" tasks={tasks3} />
+            <Column title="Todo" tasks={tasks1} color="red" />
+            <Column title="Doing" tasks={tasks2} color="yellow" />
+            <Column title="Done" tasks={tasks3} color="green" />
             <div className="flex flex-col w-1/6 p-1">
               <h2 className="text-md mb-2 min-h-[16px]"></h2>
               <div
