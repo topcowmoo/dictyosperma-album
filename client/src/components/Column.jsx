@@ -20,7 +20,12 @@ export default function Column({ title, tasks, color }) {
         } `}
       >
         {tasks.map((task, index) => (
-          <Task key={index} title={task.title} description={task.description} />
+          <Task
+            key={index}
+            title={task.title}
+            subTasks={task.subTasks}
+            description={task.description}
+          />
         ))}
       </div>
     </div>

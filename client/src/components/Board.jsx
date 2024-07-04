@@ -3,15 +3,34 @@ import Column from "./Column";
 
 export default function Board({ boardEmpty, setBoardEmpty }) {
   const tasks1 = [
-    { title: "Get talkin", description: "0 of 1 subtasks" },
-    { title: "Grocery", description: "0 of 2 subtasks" },
+    {
+      title: "Get talkin",
+      subTasks: "0 of 1 subtasks",
+      description:
+        "They called out her name time and again, but were met with nothing but silence.",
+    },
+    {
+      title: "Grocery",
+      subTasks: "0 of 2 subtasks",
+      description: "Cats are good pets, for they are clean and are not noisy.",
+    },
   ];
 
   const tasks2 = [];
 
   const tasks3 = [
-    { title: "Extract KPI results", description: "3 of 3 subtasks" },
-    { title: "Managment Course", description: "2 of 2 subtasks" },
+    {
+      title: "Extract KPI results",
+      subTasks: "3 of 3 subtasks",
+      description:
+        "His ultimate dream fantasy consisted of being content and sleeping eight hours in a row.",
+    },
+    {
+      title: "Managment Course",
+      subTasks: "2 of 2 subtasks",
+      description:
+        "I would have gotten the promotion, but my attendance wasn’t good enough.",
+    },
   ];
 
   return (
