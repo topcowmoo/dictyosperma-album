@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.board-area {
+  background-color: rgba(0, 0, 0, 0.1); /* Tint background color */
+  border-radius: 10px; /* Rounded borders */
+  padding: 20px; /* Inner padding */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add some shadow for better visibility */
+}

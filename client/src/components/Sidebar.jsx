@@ -158,7 +158,7 @@ export default function Sidebar({
 
         {sidebarVisible && (
           // Sidebar for desktop view
-          <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 lg:border-r-2 lg:border-linesLight lg:bg-white lg:dark:bg-darkBackground lg:pb-4 lg:px-4">
+          <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 lg:border-r-2 lg:border-linesLight lg:bg-white lg:dark:bg-darkBackground lg:pb-4 lg:px-4 z-50">
             <div className="flex items-center justify-between p-5">
               <a href="#">
                 <img
@@ -229,15 +229,9 @@ export default function Sidebar({
           </div>
         )}
 
-        <div className={`flex-1 ${sidebarVisible ? "lg:pl-64" : ""}`}>
-          <main className="py-10">
-            <div className="px-4 sm:px-6 lg:px-8">{/* Content */}</div>
-          </main>
-        </div>
-
         {!sidebarVisible && (
           // Button to show sidebar when it's hidden
-          <div className="fixed bottom-4 left-4">
+          <div className="fixed bottom-4">
             <div
               className="w-14 h-12 relative cursor-pointer"
               onClick={() => setSidebarVisible(!sidebarVisible)}
