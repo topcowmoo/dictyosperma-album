@@ -4,6 +4,7 @@ import darklogo from "../assets/darklogo.png";
 import lightlogo from "../assets/lightlogo.png";
 import PropTypes from "prop-types";
 import LoginModal from "./LoginModal";
+import SignupModal from "./SignupModal";
 import { useState } from "react";
 
 export default function Header({
@@ -12,23 +13,23 @@ export default function Header({
   darkMode,
   isLoggedIn,
 }) {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  // const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
-  const handleOpen = () => {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(true);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+
+  const openLoginModal = () => {
     setIsLoginModalOpen(true);
+    setIsSignupModalOpen(false); // Ensure signup modal is closed
   };
 
-  const handleClose = () => {
+  const openSignupModal = () => {
     setIsLoginModalOpen(false);
+    setIsSignupModalOpen(true);
   };
 
-  // const handleSignupOpen = () => {
-  //   setIsSignupModalOpen(true);
-  // };
-
-  // const handleSignupClose = () => {
-  //   setIsSignupModalOpen(false);
-  // };
+  const closeModals = () => {
+    setIsLoginModalOpen(false);
+    setIsSignupModalOpen(false);
+  };
 
   return (
     <div
@@ -62,7 +63,7 @@ export default function Header({
           </div>
         </div>
         <button
-          onClick={handleOpen}
+          onClick={openLoginModal}
           type="button"
           className="w-[80px] h-12 bg-primary rounded-3xl flex items-center justify-center"
         >
@@ -78,12 +79,9 @@ export default function Header({
         )}
       </div>
       {isLoginModalOpen && (
-        <LoginModal
-          OnClose={handleClose}
-          // signupOpen={handleSignupOpen}
-          // signupClose={handleSignupClose}
-        />
+        <LoginModal onClose={closeModals} openSignupModal={openSignupModal} />
       )}
+      {isSignupModalOpen && <SignupModal onClose={closeModals} />}
     </div>
   );
 }

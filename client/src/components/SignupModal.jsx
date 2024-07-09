@@ -1,6 +1,7 @@
+import React from "react";
 import PropTypes from "prop-types";
 
-export default function LoginModal({ onClose, openSignupModal }) {
+export default function SignupModal({ onClose }) {
   return (
     <div
       className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50"
@@ -12,13 +13,24 @@ export default function LoginModal({ onClose, openSignupModal }) {
       >
         <div className="my-3">
           <label htmlFor="username" className="m-2">
-            Username/Email
+            Username
           </label>
           <input
             className="p-2 m-2 bg-linesLight"
             type="text"
             id="username"
             name="username"
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="m-2">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="p-2 m-2 bg-linesLight"
+            name="email"
           />
         </div>
         <div>
@@ -33,20 +45,13 @@ export default function LoginModal({ onClose, openSignupModal }) {
           />
         </div>
         <button className="border text-center p-3" type="submit">
-          Login
+          Sign Up
         </button>
-        <p className="text-center text-xs py-3">
-          Not a user?{" "}
-          <button type="button" onClick={openSignupModal}>
-            Sign up
-          </button>
-        </p>
       </form>
     </div>
   );
 }
 
-LoginModal.propTypes = {
+SignupModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  openSignupModal: PropTypes.func.isRequired,
 };
