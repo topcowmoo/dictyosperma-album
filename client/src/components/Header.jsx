@@ -3,6 +3,9 @@ import { MdLogin as LoginIcon, MdLogout as LogoutIcon } from "react-icons/md";
 import darklogo from "../assets/darklogo.png";
 import lightlogo from "../assets/lightlogo.png";
 import PropTypes from "prop-types";
+import LoginModal from "./LoginModal";
+import SignupModal from "./SignupModal";
+import { useState } from "react";
 
 export default function Header({
   sidebarVisible,
@@ -10,6 +13,23 @@ export default function Header({
   darkMode,
   isLoggedIn,
 }) {
+  //
+  const [pageState, setPageState] = useState("noModal");
+  const isLoginModalOpen = pageState === "loginModal";
+  const isSignupModalOpen = pageState === "signupModal";
+
+  const openLoginModal = () => {
+    setPageState("loginModal");
+  };
+
+  const openSignupModal = () => {
+    setPageState("signupModal");
+  };
+
+  const closeModals = () => {
+    setPageState("noModal");
+  };
+
   return (
     <div
       className={`top-0 z-40 flex items-center gap-x-4 border-b-2 border-linesLight dark:border-linesLight bg-white dark:bg-darkBackground px-4 sm:gap-x-6 sm:px-6 lg:px-8 py-6 ${
@@ -42,6 +62,7 @@ export default function Header({
           </div>
         </div>
         <button
+          onClick={openLoginModal}
           type="button"
           className="w-[80px] h-12 bg-primary rounded-3xl flex items-center justify-center"
         >
@@ -56,6 +77,10 @@ export default function Header({
           </button>
         )}
       </div>
+      {isLoginModalOpen && (
+        <LoginModal onClose={closeModals} openSignupModal={openSignupModal} />
+      )}
+      {isSignupModalOpen && <SignupModal onClose={closeModals} />}
     </div>
   );
 }
