@@ -12,10 +12,10 @@ export default function LoginModal({ onClose, openSignupModal }) {
       >
         <div className="my-3">
           <label htmlFor="username" className="block m-2">
-            Username/Email
+            Email
           </label>
           <input
-            className="p-2 m-2 bg-linesLight w-full"
+            className="p-2 m-2 border-2 border-primary w-full"
             type="text"
             id="username"
             name="username"
@@ -28,7 +28,7 @@ export default function LoginModal({ onClose, openSignupModal }) {
           <input
             type="password"
             id="password"
-            className="p-2 m-2 bg-linesLight w-full"
+            className="p-2 m-2 border-2 border-primary w-full"
             name="password"
           />
         </div>

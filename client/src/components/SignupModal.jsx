@@ -10,14 +10,14 @@ export default function SignupModal({ onClose }) {
         className="flex flex-col bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-80"
         onClick={(event) => event.stopPropagation()} // Prevent click event from propagating to the overlay
       >
-        <div>
+        <div className="my-3">
           <label htmlFor="email" className="block m-2">
             Email
           </label>
           <input
             type="email"
             id="email"
-            className="p-2 m-2 bg-linesLight w-full"
+            className="p-2 m-2 border-primary-500 w-full"
             name="email"
           />
         </div>
@@ -32,7 +32,7 @@ export default function SignupModal({ onClose }) {
             name="password"
           />
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center py-5">
           <button
             className="text-center w-[160px] text-white h-12 bg-primary rounded-3xl px-4 py-2"
             type="submit"
