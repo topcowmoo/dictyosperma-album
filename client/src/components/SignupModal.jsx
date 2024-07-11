@@ -17,7 +17,7 @@ export default function SignupModal({ onClose }) {
           <input
             type="email"
             id="email"
-            className="p-2 m-2 border-primary-500 w-full"
+            className="p-2 m-2 border-2 border-primary w-full"
             name="email"
           />
         </div>
@@ -28,7 +28,7 @@ export default function SignupModal({ onClose }) {
           <input
             type="password"
             id="password"
-            className="p-2 m-2 bg-linesLight w-full mb"
+            className="p-2 m-2 border-2 border-primary w-full mb"
             name="password"
           />
         </div>
