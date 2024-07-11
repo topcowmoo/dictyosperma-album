@@ -13,22 +13,21 @@ export default function Header({
   darkMode,
   isLoggedIn,
 }) {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(true);
-  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  //
+  const [pageState, setPageState] = useState("noModal");
+  const isLoginModalOpen = pageState === "loginModal";
+  const isSignupModalOpen = pageState === "signupModal";
 
   const openLoginModal = () => {
-    setIsLoginModalOpen(true);
-    setIsSignupModalOpen(false); // Ensure signup modal is closed
+    setPageState("loginModal");
   };
 
   const openSignupModal = () => {
-    setIsLoginModalOpen(false);
-    setIsSignupModalOpen(true);
+    setPageState("signupModal");
   };
 
   const closeModals = () => {
-    setIsLoginModalOpen(false);
-    setIsSignupModalOpen(false);
+    setPageState("noModal");
   };
 
   return (

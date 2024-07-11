@@ -7,37 +7,46 @@ export default function LoginModal({ onClose, openSignupModal }) {
       onClick={onClose} // Close modal when clicking on the overlay
     >
       <form
-        className="flex flex-col bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+        className="flex flex-col bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-80"
         onClick={(event) => event.stopPropagation()} // Prevent click event from propagating to the overlay
       >
         <div className="my-3">
-          <label htmlFor="username" className="m-2">
+          <label htmlFor="username" className="block m-2">
             Username/Email
           </label>
           <input
-            className="p-2 m-2 bg-linesLight"
+            className="p-2 m-2 bg-linesLight w-full"
             type="text"
             id="username"
             name="username"
           />
         </div>
-        <div>
-          <label htmlFor="password" className="m-2 ">
+        <div className="my-3">
+          <label htmlFor="password" className="block m-2">
             Password
           </label>
           <input
             type="password"
             id="password"
-            className="p-2 m-2 bg-linesLight"
+            className="p-2 m-2 bg-linesLight w-full"
             name="password"
           />
         </div>
-        <button className="border text-center p-3" type="submit">
-          Login
-        </button>
+        <div className="flex justify-center">
+          <button
+            className="text-center w-[160px] text-white h-12 bg-primary rounded-3xl px-4 py-2"
+            type="submit"
+          >
+            Login
+          </button>
+        </div>
         <p className="text-center text-xs py-3">
           Not a user?{" "}
-          <button type="button" onClick={openSignupModal}>
+          <button
+            type="button"
+            onClick={openSignupModal}
+            className="text-blue-500 underline"
+          >
             Sign up
           </button>
         </p>
