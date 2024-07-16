@@ -3,11 +3,12 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Board from "./components/Board";
 import { useState } from "react";
+import Auth from './utils/auth';
 
 function App() {
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn());
   const [boardEmpty, setBoardEmpty] = useState(true);
 
   const toggleDarkMode = () => {
