@@ -4,19 +4,19 @@ import darklogo from "../assets/darklogo.png";
 import lightlogo from "../assets/lightlogo.png";
 import PropTypes from "prop-types";
 import LoginModal from "./LoginModal";
-import SignupModal from "./SignupModal";
 import { useState } from "react";
+import AuthService from '../utils/auth';
 
 export default function Header({
   sidebarVisible,
   setSidebarOpen,
   darkMode,
   isLoggedIn,
+  setIsLoggedIn,
 }) {
-  //
   const [pageState, setPageState] = useState("noModal");
   const isLoginModalOpen = pageState === "loginModal";
-  const isSignupModalOpen = pageState === "signupModal";
+ 
 
   const openLoginModal = () => {
     setPageState("loginModal");
@@ -28,6 +28,11 @@ export default function Header({
 
   const closeModals = () => {
     setPageState("noModal");
+  };
+
+  const handleLogout = () => {
+    AuthService.logout();
+    setIsLoggedIn(false);
   };
 
   return (
@@ -55,32 +60,41 @@ export default function Header({
       )}
       <div className="flex-1" />
       <div className="flex items-center gap-x-4">
-        <div className="relative">
-          <div className="w-[164px] h-12 bg-secondaryHover rounded-3xl" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-white text-[15px]">+ Add New Task</div>
-          </div>
-        </div>
-        <button
-          onClick={openLoginModal}
-          type="button"
-          className="w-[80px] h-12 bg-primary rounded-3xl flex items-center justify-center"
-        >
-          <LoginIcon className="text-white h-5 w-5" />
-        </button>
         {isLoggedIn && (
+          <div className="relative">
+            <div className="w-[164px] h-12 bg-secondaryHover rounded-3xl" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-white text-[15px]">+ Add New Task</div>
+            </div>
+          </div>
+        )}
+        {isLoggedIn ? (
           <button
+            onClick={handleLogout}
             type="button"
             className="w-[80px] h-12 bg-primary rounded-3xl flex items-center justify-center"
           >
             <LogoutIcon className="text-white h-5 w-5" />
           </button>
+        ) : (
+          <>
+            <button
+              onClick={openLoginModal}
+              type="button"
+              className="w-[80px] h-12 bg-primary rounded-3xl flex items-center justify-center"
+            >
+              <LoginIcon className="text-white h-5 w-5" />
+            </button>
+          </>
         )}
       </div>
       {isLoginModalOpen && (
-        <LoginModal onClose={closeModals} openSignupModal={openSignupModal} />
+        <LoginModal
+          onClose={closeModals}
+          openSignupModal={openSignupModal}
+          setIsLoggedIn={setIsLoggedIn}
+        />
       )}
-      {isSignupModalOpen && <SignupModal onClose={closeModals} />}
     </div>
   );
 }
@@ -90,4 +104,5 @@ Header.propTypes = {
   setSidebarOpen: PropTypes.func.isRequired,
   darkMode: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  setIsLoggedIn: PropTypes.func.isRequired,
 };

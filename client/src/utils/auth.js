@@ -22,14 +22,17 @@ class AuthService {
         try {
             // Decoding the token 
             const decoded = decode(token); 
-            // Checking if the token exists and not expired 
+            // Checking if the token exists and is not expired 
             if (decoded.exp < Date.now() / 1000) {
                 return true;
-            } else return false;
+            } else {
+                return false;
+            }
         } catch (error) {
             return false;
         }
     }
+
 
     // Method to get the token from Local Storage 
     getToken() {

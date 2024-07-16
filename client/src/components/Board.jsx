@@ -79,4 +79,5 @@ export default function Board({ boardEmpty, setBoardEmpty }) {
 Board.propTypes = {
   boardEmpty: PropTypes.bool.isRequired, // Boolean indicating if the board is empty
   setBoardEmpty: PropTypes.func.isRequired, // Function to toggle board empty state
+  isLoggedIn: PropTypes.bool.isRequired,
 };
