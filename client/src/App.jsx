@@ -7,8 +7,7 @@ import { useState } from "react";
 function App() {
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  //state to handle empty boards
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Define isLoggedIn and setIsLoggedIn
   const [boardEmpty, setBoardEmpty] = useState(true);
 
   const toggleDarkMode = () => {
@@ -21,7 +20,8 @@ function App() {
         sidebarVisible={sidebarVisible}
         setSidebarOpen={setSidebarVisible}
         darkMode={darkMode}
-        isLoggedIn={isLoggedIn}
+        isLoggedIn={isLoggedIn} // Pass isLoggedIn to Header
+        setIsLoggedIn={setIsLoggedIn} // Pass setIsLoggedIn to Header
       />
       <div className="flex flex-1">
         {sidebarVisible && (
@@ -35,7 +35,6 @@ function App() {
             />
           </div>
         )}
-
         {!sidebarVisible && (
           <div>
             <Sidebar
@@ -47,7 +46,11 @@ function App() {
             />
           </div>
         )}
-        <Board boardEmpty={boardEmpty} setBoardEmpty={setBoardEmpty} />
+        <Board
+          boardEmpty={boardEmpty}
+          setBoardEmpty={setBoardEmpty}
+          isLoggedIn={isLoggedIn}
+        />
       </div>
     </div>
   );
