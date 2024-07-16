@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
-import AuthService from '../utils/auth';
+import Auth from '../utils/auth';
 
 export default function SignupModal({ onClose, setIsLoggedIn }) {
   const [signup, { loading, error }] = useMutation(ADD_USER);
@@ -13,6 +13,23 @@ export default function SignupModal({ onClose, setIsLoggedIn }) {
       email: '',
       password: ''
     },
+    validate: (values) => {
+      const errors = {};
+      if (!values.username) {
+        errors.username = 'Username is required';
+      }
+      if (!values.email) {
+        errors.email = 'Email is required';
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address';
+      }
+      if (!values.password) {
+        errors.password = 'Password is required';
+      } else if (values.password.length < 6) {
+        errors.password = 'Password must be at least 6 characters long';
+      }
+      return errors;
+    },
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         const { data } = await signup({
@@ -21,7 +38,7 @@ export default function SignupModal({ onClose, setIsLoggedIn }) {
 
         // Handle successful signup
         const { token } = data.addUser;
-        AuthService.login(token);
+        Auth.login(token);
         setIsLoggedIn(true); // Update the state
         onClose();
       } catch (e) {
@@ -56,6 +73,9 @@ export default function SignupModal({ onClose, setIsLoggedIn }) {
             onBlur={formik.handleBlur}
             value={formik.values.username}
           />
+          {formik.errors.username && formik.touched.username && (
+            <div className="text-red-500 text-xs m-2">{formik.errors.username}</div>
+          )}
         </div>
         <div className="my-3">
           <label htmlFor="email" className="block m-2">
@@ -70,6 +90,9 @@ export default function SignupModal({ onClose, setIsLoggedIn }) {
             onBlur={formik.handleBlur}
             value={formik.values.email}
           />
+          {formik.errors.email && formik.touched.email && (
+            <div className="text-red-500 text-xs m-2">{formik.errors.email}</div>
+          )}
         </div>
         <div className="my-3">
           <label htmlFor="password" className="block m-2">
@@ -84,6 +107,9 @@ export default function SignupModal({ onClose, setIsLoggedIn }) {
             onBlur={formik.handleBlur}
             value={formik.values.password}
           />
+          {formik.errors.password && formik.touched.password && (
+            <div className="text-red-500 text-xs m-2">{formik.errors.password}</div>
+          )}
         </div>
         <div className="flex justify-center">
           <button
@@ -104,6 +130,9 @@ export default function SignupModal({ onClose, setIsLoggedIn }) {
             Log in
           </button>
         </p>
+        {formik.errors.submit && (
+          <div className="text-red-500 text-xs text-center m-2">{formik.errors.submit}</div>
+        )}
       </form>
     </div>
   );

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../utils/mutations";
-import AuthService from '../utils/auth';
+import Auth from '../utils/auth';
 
 export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) {
   const [login, { loading, error }] = useMutation(LOGIN);
@@ -12,6 +12,16 @@ export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) 
       username: '',
       password: ''
     },
+    validate: (values) => {
+      const errors = {};
+      if (!values.username) {
+        errors.username = 'Username is required';
+      }
+      if (!values.password) {
+        errors.password = 'Password is required';
+      }
+      return errors;
+    },
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         const { data } = await login({
@@ -20,7 +30,7 @@ export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) 
 
         // Handle successful login
         const { token } = data.login;
-        AuthService.login(token);
+        Auth.login(token);
         setIsLoggedIn(true); // Update the state
         onClose();
       } catch (e) {
@@ -55,6 +65,9 @@ export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) 
             onBlur={formik.handleBlur}
             value={formik.values.username}
           />
+          {formik.errors.username && formik.touched.username && (
+            <div className="text-red-500 text-xs m-2">{formik.errors.username}</div>
+          )}
         </div>
         <div className="my-3">
           <label htmlFor="password" className="block m-2">
@@ -69,6 +82,9 @@ export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) 
             onBlur={formik.handleBlur}
             value={formik.values.password}
           />
+          {formik.errors.password && formik.touched.password && (
+            <div className="text-red-500 text-xs m-2">{formik.errors.password}</div>
+          )}
         </div>
         <div className="flex justify-center">
           <button
@@ -89,6 +105,9 @@ export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) 
             Sign up
           </button>
         </p>
+        {formik.errors.submit && (
+          <div className="text-red-500 text-xs text-center m-2">{formik.errors.submit}</div>
+        )}
       </form>
     </div>
   );

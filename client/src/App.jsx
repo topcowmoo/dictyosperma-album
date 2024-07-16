@@ -7,21 +7,26 @@ import { useState } from "react";
 function App() {
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Define isLoggedIn and setIsLoggedIn
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [boardEmpty, setBoardEmpty] = useState(true);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
 
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
   return (
     <div className="App h-screen flex flex-col">
       <Header
         sidebarVisible={sidebarVisible}
-        setSidebarOpen={setSidebarVisible}
+        toggleSidebar={toggleSidebar}
         darkMode={darkMode}
-        isLoggedIn={isLoggedIn} // Pass isLoggedIn to Header
-        setIsLoggedIn={setIsLoggedIn} // Pass setIsLoggedIn to Header
+        toggleDarkMode={toggleDarkMode}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
       />
       <div className="flex flex-1">
         {sidebarVisible && (
