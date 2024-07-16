@@ -4,19 +4,21 @@ import darklogo from "../assets/darklogo.png";
 import lightlogo from "../assets/lightlogo.png";
 import PropTypes from "prop-types";
 import LoginModal from "./LoginModal";
+import SignupModal from "./SignupModal";
 import { useState } from "react";
 import AuthService from '../utils/auth';
 
 export default function Header({
   sidebarVisible,
-  setSidebarOpen,
+  toggleSidebar,
   darkMode,
+  toggleDarkMode,
   isLoggedIn,
   setIsLoggedIn,
 }) {
   const [pageState, setPageState] = useState("noModal");
   const isLoginModalOpen = pageState === "loginModal";
- 
+  const isSignupModalOpen = pageState === "signupModal";
 
   const openLoginModal = () => {
     setPageState("loginModal");
@@ -44,7 +46,7 @@ export default function Header({
       <button
         type="button"
         className="-m-2.5 p-2.5 text-gray-700 dark:text-darkText lg:hidden"
-        onClick={() => setSidebarOpen(true)}
+        onClick={toggleSidebar}
       >
         <span className="sr-only">Open sidebar</span>
         <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -91,7 +93,13 @@ export default function Header({
       {isLoginModalOpen && (
         <LoginModal
           onClose={closeModals}
-          openSignupModal={openSignupModal}
+          openSignupModal={openSignupModal} // Pass openSignupModal to LoginModal
+          setIsLoggedIn={setIsLoggedIn}
+        />
+      )}
+      {isSignupModalOpen && (
+        <SignupModal
+          onClose={closeModals}
           setIsLoggedIn={setIsLoggedIn}
         />
       )}
@@ -101,8 +109,9 @@ export default function Header({
 
 Header.propTypes = {
   sidebarVisible: PropTypes.bool.isRequired,
-  setSidebarOpen: PropTypes.func.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
   darkMode: PropTypes.bool.isRequired,
+  toggleDarkMode: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   setIsLoggedIn: PropTypes.func.isRequired,
 };
