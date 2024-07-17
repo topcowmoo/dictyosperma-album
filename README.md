@@ -6,7 +6,7 @@
     <img src="./client/src/assets/lightlogo.png" alt="Logo">
   </a>
 
-<!-- <h3 align="center"><a href="https://baketomo.onrender.com/">Kanban 4U</a></h3> -->
+<h3 align="center"><a href="https://kanban4u.onrender.com">Kanban 4U</a></h3>
 
   <p align="center">
 
@@ -17,13 +17,11 @@
 <a href="https://github.com/topcowmoo/dictyosperma-album"><strong>Explore the docs »</strong></a>
 <br />
 <br />
-<!-- <a href="https://baketomo.onrender.com/">Deployed App on Render</a> -->
+<a href="https://kanban4u.onrender.com">Deployed App on Render</a>
 ·
 <a href="https://github.com/topcowmoo/dictyosperma-album/issues">Report Bug</a>
 ·
 <a href="https://github.com/topcowmoo/dictyosperma-album/issues">Request Feature</a>
-
-<!-- <a href="https://docs.google.com/document/d/1rHQ_tM3kYNMB6qDTxue6-6NvB7A_TC0nRu216h9Ysxk/edit">Proposal</a> -->
 
 </p>
 </div>
@@ -80,36 +78,26 @@ Successful purchases of Monster packs through Stripe:
 
 ![image](https://github.com/topcowmoo/futuristic-wound/assets/149528212/7d0481f4-3475-42cd-adc1-b6ba140e507e) -->
 
-<!-- BUILT WITH -->
-
 ## Built With
 
 [![My Skills](https://simpleskill.icons.workers.dev/svg?i=nodedotjs,express,javascript,react,vite,graphql,apollographql,tailwindcss,mongodb,mongoose,=50)](#)
 
-
 ### Installation
 
-<!-- 1. Clone the repo to your local machince
+1. Clone the repo to your local machince.
    ```sh
-   git clone https://github.com/topcowmoo/futuristic-wound
+   git clone https://github.com/topcowmoo/dictyosperma-album
    ```
-2. Install server and client dependencies
+2. Install NPM packages
    ```sh
    npm install
    ```
-3. Run the development environment
+3. Start the server from the terminal
    ```sh
-   npm run devlop
+   npm run start
    ```
-4. Build for production
-   ```sh
-   npm run build
-   ```
-5. Signup and play! -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTRIBUTING -->
 
 ## Contributing
 
@@ -134,13 +122,11 @@ Don't forget to give the project a star! Thanks again!
 - Garret Hildebrandt - [@github](https://github.com/garrethil) - garrethildebrandt@gmail.com
 - Salvatore Mammoliti - [@github](https://github.com/topcowmoo) - mammoliti.sam@gmail.com
 
-<!-- Deployed Link: [https://baketomo.onrender.com/](https://baketomo.onrender.com/) -->
+Deployed Link: [https://kanban4u.onrender.com](https://kanban4u.onrender.com)
 
 Project Link: [https://github.com/topcowmoo/dictyosperma-album](https://github.com/topcowmoo/dictyosperma-album)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ACKNOWLEDGMENTS -->
 
 ## Acknowledgments
 
