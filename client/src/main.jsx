@@ -7,8 +7,7 @@ import './index.css';
 
 // Set up the httpLink
 const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_GRAPHQL_URI || 'http://localhost:3001/graphql', 
-  //'http://localhost:3001/graphql'
+  uri: import.meta.env.VITE_GRAPHQL_URI || 'http://localhost:3001/graphql',
 });
 
 // Set up the authLink
