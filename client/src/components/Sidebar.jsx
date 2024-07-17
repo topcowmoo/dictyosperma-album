@@ -10,6 +10,7 @@ import iconHideSidebar from "../assets/icon-hide-sidebar.svg";
 import iconShowSidebar from "../assets/icon-show-sidebar.svg";
 import iconBoard from "../assets/icon-board.svg";
 import PropTypes from "prop-types";
+import { ADD_BOARD } from "../utils/mutations";
 
 // Define navigation items for the sidebar
 const navigation = [
@@ -35,6 +36,19 @@ const navigation = [
     href: "#create-new-board",
   },
 ];
+
+//addBoard feature
+
+const [addBoard] = useMutation(ADD_BOARD);
+const handleAddBoard = async () => {
+  try {
+    const { data } = await addBoard({
+      variables: {
+        title: ``
+      }
+    })
+  }
+}
 
 // Utility function to combine class names conditionally
 function classNames(...classes) {
