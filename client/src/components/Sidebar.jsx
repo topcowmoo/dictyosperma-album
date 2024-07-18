@@ -1,7 +1,7 @@
-// Import necessary hooks and components from React and other libraries
 import { useState, useEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import PropTypes from "prop-types";
 import darklogo from "../assets/darklogo.png";
 import lightlogo from "../assets/lightlogo.png";
 import iconLightTheme from "../assets/icon-light-theme.svg";
@@ -9,53 +9,13 @@ import iconDarkTheme from "../assets/icon-dark-theme.svg";
 import iconHideSidebar from "../assets/icon-hide-sidebar.svg";
 import iconShowSidebar from "../assets/icon-show-sidebar.svg";
 import iconBoard from "../assets/icon-board.svg";
-import PropTypes from "prop-types";
-import { ADD_BOARD } from "../utils/mutations";
+import AddBoardModal from "./AddBoardModal"; // Assuming you have this component
+import PromptModal from "./promptModal"; // Assuming you have this component
 
-// Define navigation items for the sidebar
-const navigation = [
-  {
-    id: 1, // Had to add Unique ID for the navigation item
-    name: (
-      <div className="text-slate-400 text-xs tracking-[2.40px]">ALL BOARDS</div>
-    ),
-    href: "#all-boards",
-  },
-  {
-    id: 2, // Had to add Unique ID for the navigation item
-    name: (
-      <div className="flex items-center ">
-        <img
-          className="w-[18px] h-4 mr-2 text-primary"
-          src={iconBoard}
-          alt="board icon"
-        />
-        <div className="text-primary text-[15px]">+ Create New Board</div>
-      </div>
-    ),
-    href: "#create-new-board",
-  },
-];
-
-//addBoard feature
-
-const [addBoard] = useMutation(ADD_BOARD);
-const handleAddBoard = async () => {
-  try {
-    const { data } = await addBoard({
-      variables: {
-        title: ``
-      }
-    })
-  }
-}
-
-// Utility function to combine class names conditionally
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-// Main Sidebar component
 export default function Sidebar({
   sidebarVisible,
   setSidebarVisible,
@@ -63,10 +23,24 @@ export default function Sidebar({
   toggleDarkMode,
   isLoggedIn,
 }) {
-  // State to manage the sidebar open/close status
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [pageState, setPageState] = useState("noModal");
 
-  // Effect to toggle dark mode class on the root element
+  const isPromptOpen = pageState === "promptModal";
+  const isNewBoardOpen = pageState === "newBoardModal";
+
+  const openPrompt = () => {
+    setPageState("promptModal");
+  };
+
+  const openNewBoardModal = () => {
+    setPageState("newBoardModal");
+  };
+
+  const closeModals = () => {
+    setPageState("noModal");
+  };
+
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -79,7 +53,6 @@ export default function Sidebar({
     <>
       <div className="flex">
         {sidebarVisible && (
-          // Dialog for mobile view sidebar
           <Dialog
             className="relative z-50 lg:hidden"
             open={sidebarOpen}
@@ -109,18 +82,7 @@ export default function Sidebar({
                   </button>
                 </div>
                 <nav className="flex-1 px-4 pb-4 space-y-1">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.id}
-                      href={item.href}
-                      className={classNames(
-                        "text-gray-700 dark:text-darkText",
-                        "block rounded-md p-2 text-base font-medium"
-                      )}
-                    >
-                      {item.name}
-                    </a>
-                  ))}
+                  {/* Add navigation items here if needed */}
                 </nav>
                 <div className="px-4 pb-4 flex flex-col items-start gap-2">
                   <div
@@ -171,7 +133,6 @@ export default function Sidebar({
         )}
 
         {sidebarVisible && (
-          // Sidebar for desktop view
           <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 lg:border-r-2 lg:border-linesLight lg:bg-white lg:dark:bg-darkBackground lg:pb-4 lg:px-4 z-50">
             <div className="flex items-center justify-between p-5">
               <a href="#">
@@ -184,18 +145,38 @@ export default function Sidebar({
             </div>
             <div className="px-4 pb-4"></div>
             <nav className="flex-1 px-4 pb-4 space-y-1">
-              {navigation.map((item) => (
+              <div className="text-slate-400 text-xs tracking-[2.40px]">
+                ALL BOARDS
+              </div>
+              <div
+                className="text-gray-700 dark:text-darkText block rounded-md p-2 text-base font-medium cursor-pointer"
+                onClick={isLoggedIn ? openNewBoardModal : openPrompt}
+              >
+                <div className="flex items-center">
+                  <img
+                    className="w-[18px] h-4 mr-2 text-primary"
+                    src={iconBoard}
+                    alt="board icon"
+                  />
+                  <div className="text-primary text-[15px]">
+                    + Create New Board
+                  </div>
+                </div>
+              </div>
+              {isPromptOpen && <PromptModal onModalClose={closeModals} />}
+              {isNewBoardOpen && (
+                <AddBoardModal isOpen={isNewBoardOpen} onClose={closeModals} />
+              )}
+              {/* Map users' existing boards here */}
+              {/* {navigation.map((item) => (
                 <a
                   key={item.id}
                   href={item.href}
-                  className={classNames(
-                    "text-gray-700 dark:text-darkText",
-                    "block rounded-md p-2 text-base font-medium"
-                  )}
+                  className="text-gray-700 dark:text-darkText block rounded-md p-2 text-base font-medium"
                 >
                   {item.name}
                 </a>
-              ))}
+              ))} */}
             </nav>
             <div className="px-4 pb-4 flex flex-col items-start gap-2">
               <div
@@ -244,7 +225,6 @@ export default function Sidebar({
         )}
 
         {!sidebarVisible && (
-          // Button to show sidebar when it's hidden
           <div className="fixed bottom-4">
             <div
               className="w-14 h-12 relative cursor-pointer"
@@ -264,7 +244,6 @@ export default function Sidebar({
   );
 }
 
-// Define prop types for the Sidebar component
 Sidebar.propTypes = {
   sidebarVisible: PropTypes.bool.isRequired, // Boolean indicating if the sidebar is visible
   setSidebarVisible: PropTypes.func.isRequired, // Function to toggle sidebar visibility
