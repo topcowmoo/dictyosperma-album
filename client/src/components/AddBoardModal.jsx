@@ -1,7 +1,9 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { useMutation } from "@apollo/client";
 import { ADD_BOARD } from "../utils/mutations";
-export default function AddBoardModal({ onClose }) {
+
+export default function AddBoardModal({ onClose, userId, onAddBoard }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [addBoard] = useMutation(ADD_BOARD);
@@ -27,27 +29,32 @@ export default function AddBoardModal({ onClose }) {
       <form
         className="flex flex-col bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-80"
         onClick={(event) => event.stopPropagation()} // Prevent click event from propagating to the overlay
+        onSubmit={handleSubmit}
       >
         <div className="my-3">
-          <label htmlFor="email" className="block m-2">
-            Email
+          <label htmlFor="title" className="block m-2">
+            Title
           </label>
           <input
-            type="email"
-            id="email"
+            type="text"
+            id="title"
             className="p-2 m-2 border-2 border-primary w-full"
-            name="email"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
           />
         </div>
-        <div>
-          <label htmlFor="password" className="block m-2 ">
-            Password
+        <div className="my-3">
+          <label htmlFor="description" className="block m-2">
+            Description
           </label>
           <input
-            type="password"
-            id="password"
-            className="p-2 m-2 border-2 border-primary w-full mb"
-            name="password"
+            type="text"
+            id="description"
+            className="p-2 m-2 border-2 border-primary w-full"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
           />
         </div>
         <div className="flex justify-center py-5">
@@ -55,7 +62,7 @@ export default function AddBoardModal({ onClose }) {
             className="text-center w-[160px] text-white h-12 bg-primary rounded-3xl px-4 py-2"
             type="submit"
           >
-            Signup
+            Add Board
           </button>
         </div>
       </form>
@@ -65,4 +72,6 @@ export default function AddBoardModal({ onClose }) {
 
 AddBoardModal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
+  onAddBoard: PropTypes.func.isRequired,
 };

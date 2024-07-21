@@ -2,44 +2,53 @@ import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../utils/mutations";
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
+import { useUser } from "../utils/UserContext";
 
-export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) {
+export default function LoginModal({
+  onClose,
+  openSignupModal,
+  setIsLoggedIn,
+}) {
   const [login, { loading, error }] = useMutation(LOGIN);
-
+  const { setUser } = useUser();
   const formik = useFormik({
     initialValues: {
-      username: '',
-      password: ''
+      username: "",
+      password: "",
     },
     validate: (values) => {
       const errors = {};
       if (!values.username) {
-        errors.username = 'Username is required';
+        errors.username = "Username is required";
       }
       if (!values.password) {
-        errors.password = 'Password is required';
+        errors.password = "Password is required";
       }
       return errors;
     },
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
+        console.log("Attempting login with values:", values); // Log the values being submitted
         const { data } = await login({
           variables: { ...values },
         });
 
         // Handle successful login
-        const { token } = data.login;
+        console.log("Login response data:", data); // Log the response data
+        const { token, user } = data.login;
+        console.log("Token:", token);
         Auth.login(token);
         setIsLoggedIn(true); // Update the state
+        setUser(user);
         onClose();
       } catch (e) {
-        setErrors({ submit: 'Invalid login credentials' });
-        console.error('Login failed', e);
+        setErrors({ submit: "Invalid login credentials" });
+        console.error("Login failed", e);
       } finally {
         setSubmitting(false);
       }
-    }
+    },
   });
 
   return (
@@ -66,7 +75,9 @@ export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) 
             value={formik.values.username}
           />
           {formik.errors.username && formik.touched.username && (
-            <div className="text-red-500 text-xs m-2">{formik.errors.username}</div>
+            <div className="text-red-500 text-xs m-2">
+              {formik.errors.username}
+            </div>
           )}
         </div>
         <div className="my-3">
@@ -83,7 +94,9 @@ export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) 
             value={formik.values.password}
           />
           {formik.errors.password && formik.touched.password && (
-            <div className="text-red-500 text-xs m-2">{formik.errors.password}</div>
+            <div className="text-red-500 text-xs m-2">
+              {formik.errors.password}
+            </div>
           )}
         </div>
         <div className="flex justify-center">
@@ -92,7 +105,7 @@ export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) 
             type="submit"
             disabled={formik.isSubmitting || loading}
           >
-            {formik.isSubmitting || loading ? 'Logging in...' : 'Login'}
+            {formik.isSubmitting || loading ? "Logging in..." : "Login"}
           </button>
         </div>
         <p className="text-center text-xs py-3">
@@ -106,7 +119,9 @@ export default function LoginModal({ onClose, openSignupModal, setIsLoggedIn }) 
           </button>
         </p>
         {formik.errors.submit && (
-          <div className="text-red-500 text-xs text-center m-2">{formik.errors.submit}</div>
+          <div className="text-red-500 text-xs text-center m-2">
+            {formik.errors.submit}
+          </div>
         )}
       </form>
     </div>

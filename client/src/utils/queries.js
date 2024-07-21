@@ -97,3 +97,14 @@ export const GET_USER = gql`
     }
   }
 `;
+
+//Query to get current user
+export const GET_CURRENT_USER = gql`
+  query GetCurrentUser {
+    me {
+      _id
+      email
+      username
+    }
+  }
+`;

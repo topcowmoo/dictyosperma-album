@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useMutation } from "@apollo/client";
 import PropTypes from "prop-types";
 import darklogo from "../assets/darklogo.png";
 import lightlogo from "../assets/lightlogo.png";
@@ -11,10 +12,11 @@ import iconShowSidebar from "../assets/icon-show-sidebar.svg";
 import iconBoard from "../assets/icon-board.svg";
 import AddBoardModal from "./AddBoardModal"; // Assuming you have this component
 import PromptModal from "./promptModal"; // Assuming you have this component
+import { ADD_BOARD } from "../utils/mutations";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(" ");
+// }
 
 export default function Sidebar({
   sidebarVisible,
@@ -22,9 +24,11 @@ export default function Sidebar({
   darkMode,
   toggleDarkMode,
   isLoggedIn,
+  userId,
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [pageState, setPageState] = useState("noModal");
+  const [addBoard] = useMutation(ADD_BOARD);
 
   const isPromptOpen = pageState === "promptModal";
   const isNewBoardOpen = pageState === "newBoardModal";
@@ -165,7 +169,12 @@ export default function Sidebar({
               </div>
               {isPromptOpen && <PromptModal onModalClose={closeModals} />}
               {isNewBoardOpen && (
-                <AddBoardModal isOpen={isNewBoardOpen} onClose={closeModals} />
+                <AddBoardModal
+                  isOpen={isNewBoardOpen}
+                  onClose={closeModals}
+                  userId={"66986381d09acfe6f7a8da39"}
+                  onAddBoard={addBoard}
+                />
               )}
               {/* Map users' existing boards here */}
               {/* {navigation.map((item) => (
@@ -245,9 +254,10 @@ export default function Sidebar({
 }
 
 Sidebar.propTypes = {
-  sidebarVisible: PropTypes.bool.isRequired, // Boolean indicating if the sidebar is visible
-  setSidebarVisible: PropTypes.func.isRequired, // Function to toggle sidebar visibility
-  darkMode: PropTypes.bool.isRequired, // Boolean indicating if dark mode is enabled
-  toggleDarkMode: PropTypes.func.isRequired, // Function to toggle dark mode
-  isLoggedIn: PropTypes.bool.isRequired, // Boolean indicating if the user is logged in
+  sidebarVisible: PropTypes.bool.isRequired,
+  setSidebarVisible: PropTypes.func.isRequired,
+  darkMode: PropTypes.bool.isRequired,
+  toggleDarkMode: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  userId: PropTypes.string.isRequired,
 };
